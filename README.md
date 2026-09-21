@@ -4,7 +4,7 @@ A 2D missile interception game made with **Godot 4** and **Rust** using [godot-r
 
 ## Gameplay
 
-![Gameplay](assets/gameplay.gif)
+![Gameplay](assets/game_play.gif)
 
 ---
 
