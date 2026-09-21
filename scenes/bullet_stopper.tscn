@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://x542yba8a3c3"]
+
+[ext_resource type="Texture2D" path="res://assets/bullet_stopper.png" id="1_f2wap"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q37qt"]
+radius = 19.0263
+
+[node name="bullet_stopper" type="BulletStopper" unique_id=478269546]
+collision_layer = 2
+collision_mask = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1271946285]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_f2wap")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=330705733]
+shape = SubResource("CircleShape2D_q37qt")
+
+[connection signal="area_entered" from="." to="." method="on_bullet_stopper_area_entered"]

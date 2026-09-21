@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1f68217nwd25"]
+
+[ext_resource type="Texture2D" path="res://assets/bullet_enemy.png" id="1_3jaxa"]
+[ext_resource type="Texture2D" path="res://assets/bullet_player.png" id="2_asdse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x586h"]
+size = Vector2(72, 30)
+
+[sub_resource type="Gradient" id="Gradient_8nosm"]
+offsets = PackedFloat32Array(0, 0.176871, 0.537415)
+colors = PackedColorArray(1, 1, 1, 1, 0.883816, 0.903937, 2.31028e-06, 1, 0.837518, 0.179647, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8tkug"]
+gradient = SubResource("Gradient_8nosm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_soj5m"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+spread = 8.0
+gravity = Vector3(0, 80, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 8.0
+color_ramp = SubResource("GradientTexture1D_8tkug")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_billd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3jaxa")
+}],
+"loop": true,
+"name": &"enemy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_asdse")
+}],
+"loop": true,
+"name": &"player",
+"speed": 5.0
+}]
+
+[node name="bullet" type="Bullet"]
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x586h")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-31, 0)
+rotation = 3.14159
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_soj5m")
+lifetime = 2.0
+local_coords = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_billd")
+animation = &"enemy"

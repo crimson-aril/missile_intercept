@@ -1,0 +1,112 @@
+[gd_scene format=4 uid="uid://dj2hm7ed3x3ux"]
+
+[ext_resource type="Texture2D" uid="uid://cwtvu4f5lgl8d" path="res://assets/tile_map_stars.png" id="1_x5k4w"]
+[ext_resource type="Texture2D" uid="uid://b5vrd3ylj57xq" path="res://assets/tile_map_ground.png" id="2_7fo0b"]
+[ext_resource type="PackedScene" uid="uid://beifjo0ho8avd" path="res://scenes/cannon.tscn" id="3_4wkab"]
+[ext_resource type="FontFile" uid="uid://c4r8p8jojb24b" path="res://assets/kenvector_future.ttf" id="5_pxee4"]
+[ext_resource type="Texture2D" uid="uid://eq3n6uytdnet" path="res://assets/game_over_overlay.png" id="6_q8rb0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ke8r2"]
+texture = ExtResource("1_x5k4w")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_sr6cg"]
+tile_size = Vector2i(256, 256)
+sources/0 = SubResource("TileSetAtlasSource_ke8r2")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_38ec6"]
+texture = ExtResource("2_7fo0b")
+texture_region_size = Vector2i(1024, 400)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_v841w"]
+tile_size = Vector2i(1024, 400)
+sources/0 = SubResource("TileSetAtlasSource_38ec6")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jvago"]
+font = ExtResource("5_pxee4")
+font_size = 44
+
+[sub_resource type="LabelSettings" id="LabelSettings_7hwtc"]
+font = ExtResource("5_pxee4")
+font_size = 90
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p53en"]
+size = Vector2(1152, 144)
+
+[node name="game" type="Node2D" unique_id=1858295259]
+
+[node name="background" type="Node" parent="." unique_id=740033005]
+
+[node name="tile_map_stars" type="TileMapLayer" parent="background" unique_id=465326897]
+z_index = -10
+position = Vector2(-900, 0)
+tile_map_data = PackedByteArray("AAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAADAAAAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_sr6cg")
+
+[node name="tile_map_ground" type="TileMapLayer" parent="background" unique_id=737558708]
+tile_map_data = PackedByteArray("AAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAD//wEAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_v841w")
+
+[node name="bullets" type="Node2D" parent="." unique_id=869173783]
+
+[node name="bullet_brain" type="BulletBrain" parent="bullets" unique_id=826852527]
+player_bullet_speed = 700
+enemy_bullet_speed = 180
+
+[node name="enemySpawner" type="Timer" parent="bullets/bullet_brain" unique_id=978987927]
+wait_time = 3.0
+autostart = true
+
+[node name="cloudSpawner" type="Timer" parent="bullets/bullet_brain" unique_id=203089651]
+wait_time = 2.0
+autostart = true
+
+[node name="foreground" type="Node2D" parent="." unique_id=209580856]
+z_index = 10
+
+[node name="cannon" parent="foreground" unique_id=2010064752 instance=ExtResource("3_4wkab")]
+z_index = 10
+position = Vector2(598, 449)
+scale = Vector2(1, 1)
+
+[node name="hud" type="Node" parent="." unique_id=1825393485]
+
+[node name="healthAndScore" type="Label" parent="hud" unique_id=839596706]
+offset_right = 1151.0
+offset_bottom = 135.0
+text = "Hello World!"
+label_settings = SubResource("LabelSettings_jvago")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="gameOverScreen" type="Node2D" parent="hud" unique_id=303960099]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="hud/gameOverScreen" unique_id=1376136979]
+position = Vector2(574.25, 326.75)
+scale = Vector2(10.188, 6.228)
+texture = ExtResource("6_q8rb0")
+
+[node name="Label" type="Label" parent="hud/gameOverScreen" unique_id=1492948679]
+offset_top = 153.0
+offset_right = 1156.0
+offset_bottom = 298.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_7hwtc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player" type="Player" parent="." unique_id=1631999687]
+health = 5
+
+[node name="playerHitZone" type="Area2D" parent="player" unique_id=1605435136]
+position = Vector2(576, 540)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/playerHitZone" unique_id=375118085]
+shape = SubResource("RectangleShape2D_p53en")
+
+[connection signal="timeout" from="bullets/bullet_brain/enemySpawner" to="bullets/bullet_brain" method="on_enemy_spawner_timeout"]
+[connection signal="timeout" from="bullets/bullet_brain/cloudSpawner" to="bullets/bullet_brain" method="on_cloud_spawner_timeout"]
+[connection signal="area_entered" from="player/playerHitZone" to="player" method="on_player_hit_zone_area_entered"]

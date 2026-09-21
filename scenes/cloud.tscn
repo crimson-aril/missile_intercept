@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c20d1nycqx5vx"]
+
+[ext_resource type="Texture2D" path="res://assets/cloud_1.png" id="1_kangr"]
+[ext_resource type="Texture2D" path="res://assets/cloud_2.png" id="2_mm3r2"]
+[ext_resource type="Texture2D" path="res://assets/cloud_3.png" id="3_f471h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wev0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kangr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mm3r2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f471h")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="cloud" type="Cloud" unique_id=432253637]
+sprite_frames = SubResource("SpriteFrames_wev0m")

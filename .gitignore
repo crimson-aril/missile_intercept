@@ -1,0 +1,27 @@
+# Godot 4 generated files
+
+.godot/
+
+# Godot import metadata
+
+.import/
+*.import
+
+# Godot export configuration
+
+export.cfg
+export_presets.cfg
+
+# Imported translations generated from CSV files
+
+*.translation
+
+# Godot Mono / C# generated files
+
+.mono/
+data_*/
+mono_crash.*.json
+
+# Rust / Cargo build output
+
+/target/

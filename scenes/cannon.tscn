@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://beifjo0ho8avd"]
+
+[ext_resource type="Texture2D" path="res://assets/cannon.png" id="1_k7he5"]
+[ext_resource type="Texture2D" path="res://assets/cannon_barrel.png" id="2_qi2cl"]
+
+[node name="cannon" type="Sprite2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_k7he5")
+
+[node name="cannon_barrel" type="CannonBarrel" parent="."]
+position = Vector2(0, -50)
+texture = ExtResource("2_qi2cl")
+offset = Vector2(20, 0)

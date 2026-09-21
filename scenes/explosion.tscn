@@ -1,0 +1,81 @@
+[gd_scene load_steps=15 format=3 uid="uid://iwp8ugyl2w2a"]
+
+[ext_resource type="Texture2D" path="res://assets/explosion_enemy_0.png" id="1_1drul"]
+[ext_resource type="Texture2D" path="res://assets/explosion_enemy_1.png" id="2_tvqh2"]
+[ext_resource type="Texture2D" path="res://assets/explosion_enemy_2.png" id="3_dk5vu"]
+[ext_resource type="Texture2D" path="res://assets/explosion_enemy_3.png" id="4_gek7p"]
+[ext_resource type="Texture2D" path="res://assets/explosion_enemy_4.png" id="5_hslpw"]
+[ext_resource type="Texture2D" path="res://assets/explosion_enemy_5.png" id="6_i3jp7"]
+[ext_resource type="Texture2D" path="res://assets/explosion_player_0.png" id="7_4jo8i"]
+[ext_resource type="Texture2D" path="res://assets/explosion_player_1.png" id="8_71ai6"]
+[ext_resource type="Texture2D" path="res://assets/explosion_player_2.png" id="9_rusxi"]
+[ext_resource type="Texture2D" path="res://assets/explosion_player_3.png" id="10_ucpw1"]
+[ext_resource type="Texture2D" path="res://assets/explosion_player_4.png" id="11_ii61o"]
+[ext_resource type="Texture2D" path="res://assets/explosion_player_5.png" id="12_3cht8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fh6gi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1drul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tvqh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dk5vu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gek7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hslpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_i3jp7")
+}],
+"loop": false,
+"name": &"enemy",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_4jo8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_71ai6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rusxi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ucpw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ii61o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3cht8")
+}],
+"loop": false,
+"name": &"player",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_51mcf"]
+radius = 105.005
+
+[node name="explosion" type="Explosion"]
+collision_layer = 4
+collision_mask = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+sprite_frames = SubResource("SpriteFrames_fh6gi")
+animation = &"player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_51mcf")
+
+[connection signal="area_entered" from="." to="." method="on_explosion_area_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="on_animated_sprite_2d_animation_finished"]
